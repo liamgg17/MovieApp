@@ -22,6 +22,7 @@
 		F8B611E82362791F00971D06 /* MovieWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611E12362791F00971D06 /* MovieWireFrame.swift */; };
 		F8B611EB23629EAC00971D06 /* ApiSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611EA23629EAC00971D06 /* ApiSettings.swift */; };
 		F8B611EE2362A52900971D06 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611ED2362A52900971D06 /* MovieEntity.swift */; };
+		F8B611F02362B60700971D06 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611EF2362B60700971D06 /* NetworkError.swift */; };
 		FD91694593BF9D86E2ED6AF6 /* Pods_MovieApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38D605CC09A77638964CF1AB /* Pods_MovieApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		F8B611E12362791F00971D06 /* MovieWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieWireFrame.swift; sourceTree = "<group>"; };
 		F8B611EA23629EAC00971D06 /* ApiSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiSettings.swift; sourceTree = "<group>"; };
 		F8B611ED2362A52900971D06 /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
+		F8B611EF2362B60700971D06 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B611EA23629EAC00971D06 /* ApiSettings.swift */,
+				F8B611EF2362B60700971D06 /* NetworkError.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				F8B611E72362791F00971D06 /* MovieView.swift in Sources */,
 				F8B611E52362791F00971D06 /* MovieProtocols.swift in Sources */,
 				F8B611B9235FF0B600971D06 /* AppDelegate.swift in Sources */,
+				F8B611F02362B60700971D06 /* NetworkError.swift in Sources */,
 				F8B611E82362791F00971D06 /* MovieWireFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

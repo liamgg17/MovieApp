@@ -13,7 +13,7 @@
         <!--Movie View-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MovieView" id="BYZ-38-t0r" customClass="MovieView" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Movie" id="BYZ-38-t0r" customClass="MovieView" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WCc-WL-RQK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CxW-fE-m9V" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieView" automaticallyAdjustsScrollViewInsets="NO" id="CxW-fE-m9V" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CUn-7Q-LsR">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

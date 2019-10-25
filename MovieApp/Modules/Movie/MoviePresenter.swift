@@ -20,6 +20,10 @@ class MoviePresenter  {
 extension MoviePresenter: MoviePresenterProtocol {
     // TODO: implement presenter methods
     func viewDidLoad() {
+        
+        print("hola")
+        interactor?.movieFetch()
+        
     }
 }
 

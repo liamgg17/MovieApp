@@ -37,6 +37,10 @@ protocol MovieInteractorInputProtocol: class {
     var presenter: MovieInteractorOutputProtocol? { get set }
     var localDatamanager: MovieLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol? { get set }
+    
+    
+    func movieFetch()
+    
 }
 
 protocol MovieDataManagerInputProtocol: class {
@@ -46,6 +50,9 @@ protocol MovieDataManagerInputProtocol: class {
 protocol MovieRemoteDataManagerInputProtocol: class {
     // INTERACTOR -> REMOTEDATAMANAGER
     var remoteRequestHandler: MovieRemoteDataManagerOutputProtocol? { get set }
+
+    func movieFetch(urlString:String)
+
 }
 
 protocol MovieRemoteDataManagerOutputProtocol: class {

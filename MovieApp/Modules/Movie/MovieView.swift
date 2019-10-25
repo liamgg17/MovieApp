@@ -18,6 +18,9 @@ class MovieView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.viewDidLoad()
+        
     }
 }
 
