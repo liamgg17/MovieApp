@@ -16,9 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        self.initialWindow()
+        
         return true
     }
 
+    private func initialWindow(){
+        
+        // Se inicializa el modulo principal de la aplicación
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        guard let window = self.window else { return }
+        
+        let movieV = MovieWireFrame.createMovieModule()
+        window.rootViewController = movieV
+        window.makeKeyAndVisible()
+        
+        
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
