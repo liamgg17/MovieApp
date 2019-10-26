@@ -39,7 +39,7 @@ class MovieEntity:  NSObject, Mappable {
         self.budget <- map["budget"]
         self.revenue <- map["revenue"]
         self.releaseDate <- map["release_date"]
-//        if let genresOb = map.JSON["genres"] as? String: Any { self.genres = genresOb.compactMap({ $0["name"] as? String })
+//       if let genres = map.JSON["genres"] as? String: Any { self.genres = genres.compactMap({ $0["name"] as? String })
 //        }
         self.posterPath <- map["poster_path"]
         

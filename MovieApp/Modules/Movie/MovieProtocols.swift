@@ -12,6 +12,11 @@ import UIKit
 protocol MovieViewProtocol: class {
     // Presenter -> View
     var presenter: MoviePresenterProtocol? { get set }
+    func reloadMovies()
+    func addNewMovies()
+    func didFailedMovies(localizedError: String)
+    
+    
 }
 
 protocol MovieWireFrameProtocol: class {
@@ -24,12 +29,24 @@ protocol MoviePresenterProtocol: class {
     var view: MovieViewProtocol? { get set }
     var interactor: MovieInteractorInputProtocol? { get set }
     var wireFrame: MovieWireFrameProtocol? { get set }
+    var movie: [MovieEntity] { get }
+  
+    var shouldFetchNextPageMovies: Bool { get }
+    var shouldSearchMovie: Bool { get set }
     
+   
+    
+    func fetchNextPageMovies()
     func viewDidLoad()
 }
 
 protocol MovieInteractorOutputProtocol: class {
 // INTERACTOR -> PRESENTER
+    
+    func fetchMoviesDidSucceed()
+    func fetchMoviesDidFailed(_ error: NetworkError)
+    
+    
 }
 
 protocol MovieInteractorInputProtocol: class {
@@ -38,6 +55,7 @@ protocol MovieInteractorInputProtocol: class {
     var localDatamanager: MovieLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol? { get set }
     
+     var moviesSection: SectionEntity? { get }
     
     func movieFetch()
     
@@ -51,7 +69,7 @@ protocol MovieRemoteDataManagerInputProtocol: class {
     // INTERACTOR -> REMOTEDATAMANAGER
     var remoteRequestHandler: MovieRemoteDataManagerOutputProtocol? { get set }
 
-    func movieFetch(urlString:String)
+    func movieFetch(urlString:String, success: @escaping (JSON) -> Void)
 
 }
 
