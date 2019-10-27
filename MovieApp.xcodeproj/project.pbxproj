@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3C9FA860ED54877E1EF83337 /* Pods_MovieAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3A690D3C27809FE35BE430E /* Pods_MovieAppTests.framework */; };
+		F84E00BA23665F7400F94280 /* MovieDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B323665F7400F94280 /* MovieDetailInteractor.swift */; };
+		F84E00BB23665F7400F94280 /* MovieDetailLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B423665F7400F94280 /* MovieDetailLocalDataManager.swift */; };
+		F84E00BC23665F7400F94280 /* MovieDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B523665F7400F94280 /* MovieDetailPresenter.swift */; };
+		F84E00BD23665F7400F94280 /* MovieDetailProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B623665F7400F94280 /* MovieDetailProtocols.swift */; };
+		F84E00BE23665F7400F94280 /* MovieDetailRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B723665F7400F94280 /* MovieDetailRemoteDataManager.swift */; };
+		F84E00BF23665F7400F94280 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B823665F7400F94280 /* MovieDetailView.swift */; };
+		F84E00C023665F7400F94280 /* MovieDetailWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B923665F7400F94280 /* MovieDetailWireFrame.swift */; };
 		F8B611B9235FF0B600971D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611B8235FF0B600971D06 /* AppDelegate.swift */; };
 		F8B611BE235FF0B600971D06 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B611BC235FF0B600971D06 /* Movie.storyboard */; };
 		F8B611C0235FF0B700971D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8B611BF235FF0B700971D06 /* Assets.xcassets */; };
@@ -47,6 +54,13 @@
 		AAA363BEBAB49063B5FDEAC4 /* Pods-MovieApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.release.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.release.xcconfig"; sourceTree = "<group>"; };
 		B4BE7F847E052762C2E559B4 /* Pods-MovieAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieAppTests.release.xcconfig"; path = "Target Support Files/Pods-MovieAppTests/Pods-MovieAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		CB3919AD67CF262F027E1E32 /* Pods-MovieApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieApp.debug.xcconfig"; path = "Target Support Files/Pods-MovieApp/Pods-MovieApp.debug.xcconfig"; sourceTree = "<group>"; };
+		F84E00B323665F7400F94280 /* MovieDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailInteractor.swift; sourceTree = "<group>"; };
+		F84E00B423665F7400F94280 /* MovieDetailLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailLocalDataManager.swift; sourceTree = "<group>"; };
+		F84E00B523665F7400F94280 /* MovieDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenter.swift; sourceTree = "<group>"; };
+		F84E00B623665F7400F94280 /* MovieDetailProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailProtocols.swift; sourceTree = "<group>"; };
+		F84E00B723665F7400F94280 /* MovieDetailRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailRemoteDataManager.swift; sourceTree = "<group>"; };
+		F84E00B823665F7400F94280 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		F84E00B923665F7400F94280 /* MovieDetailWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailWireFrame.swift; sourceTree = "<group>"; };
 		F8B611B5235FF0B600971D06 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B611B8235FF0B600971D06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8B611BD235FF0B600971D06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Movie.storyboard; sourceTree = "<group>"; };
@@ -174,6 +188,13 @@
 		F8B611DA236278C800971D06 /* MovieDetail */ = {
 			isa = PBXGroup;
 			children = (
+				F84E00B323665F7400F94280 /* MovieDetailInteractor.swift */,
+				F84E00B423665F7400F94280 /* MovieDetailLocalDataManager.swift */,
+				F84E00B523665F7400F94280 /* MovieDetailPresenter.swift */,
+				F84E00B623665F7400F94280 /* MovieDetailProtocols.swift */,
+				F84E00B723665F7400F94280 /* MovieDetailRemoteDataManager.swift */,
+				F84E00B823665F7400F94280 /* MovieDetailView.swift */,
+				F84E00B923665F7400F94280 /* MovieDetailWireFrame.swift */,
 			);
 			path = MovieDetail;
 			sourceTree = "<group>";
@@ -393,18 +414,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8B611E22362791F00971D06 /* MovieInteractor.swift in Sources */,
+				F84E00C023665F7400F94280 /* MovieDetailWireFrame.swift in Sources */,
+				F84E00BD23665F7400F94280 /* MovieDetailProtocols.swift in Sources */,
 				F8B611EE2362A52900971D06 /* MovieEntity.swift in Sources */,
 				F8B611E62362791F00971D06 /* MovieRemoteDataManager.swift in Sources */,
 				F8B611E32362791F00971D06 /* MovieLocalDataManager.swift in Sources */,
 				F8F295112363E59300C92DEC /* CollectionMovieCell.swift in Sources */,
+				F84E00BA23665F7400F94280 /* MovieDetailInteractor.swift in Sources */,
 				F8B611EB23629EAC00971D06 /* ApiSettings.swift in Sources */,
 				F8B611E42362791F00971D06 /* MoviePresenter.swift in Sources */,
 				F8B611E72362791F00971D06 /* MovieView.swift in Sources */,
+				F84E00BF23665F7400F94280 /* MovieDetailView.swift in Sources */,
 				F8F295172363F35600C92DEC /* SectionEntity.swift in Sources */,
 				F8B611E52362791F00971D06 /* MovieProtocols.swift in Sources */,
+				F84E00BC23665F7400F94280 /* MovieDetailPresenter.swift in Sources */,
 				F8B611B9235FF0B600971D06 /* AppDelegate.swift in Sources */,
 				F8B611F02362B60700971D06 /* NetworkError.swift in Sources */,
+				F84E00BB23665F7400F94280 /* MovieDetailLocalDataManager.swift in Sources */,
 				F8F295152363EC5C00C92DEC /* UIImageViewExtension.swift in Sources */,
+				F84E00BE23665F7400F94280 /* MovieDetailRemoteDataManager.swift in Sources */,
 				F8B611E82362791F00971D06 /* MovieWireFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
