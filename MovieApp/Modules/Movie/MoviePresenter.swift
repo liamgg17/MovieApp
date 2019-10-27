@@ -41,7 +41,7 @@ class MoviePresenter  {
         
         didSet {
             self.isLoading = true
-            self.interactor?.movieFetch(section: .popular, page: 1)
+            self.interactor?.movieFetch(section: self.currentSection, page: 1)
         }
     }
     
@@ -73,7 +73,10 @@ class MoviePresenter  {
 }
 
 extension MoviePresenter: MoviePresenterProtocol {
+    
+    
   
+   
   
     
    
@@ -89,8 +92,8 @@ extension MoviePresenter: MoviePresenterProtocol {
     }
   
     func reloadMovies() {
-       // self.isLoading = true
-       // self.interactor.fetchMovies(from: self.currentSection, atPage: 1)
+        self.isLoading = true
+        self.interactor?.movieFetch(section: self.currentSection, page: 1)
     }
     
     func fetchNextPage() {
@@ -107,6 +110,18 @@ extension MoviePresenter: MoviePresenterProtocol {
       //  self.wireframe.presentDetails(from: movie)
     }
     
+    
+    var sectionTitle: String {
+        
+        switch self.currentSection {
+        case .popular:
+            return "Popular"
+        case .topRated:
+            return "Top Rated"
+        case .upcoming:
+            return "Upcoming"
+        }
+    }
    
     
 }

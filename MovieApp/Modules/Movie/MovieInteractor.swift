@@ -38,8 +38,19 @@ class MovieInteractor: MovieInteractorInputProtocol {
     
     
     func movieFetch(section: Section, page: Int) {
+        
+        var sectionString: String = ""
+        
+        switch section {
+        case .popular:
+            sectionString = "popular"
+        case .topRated:
+            sectionString = "top_rated"
+        case .upcoming:
+            sectionString = "upcoming"
+        }
     
-        let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(section)?api_key=\(ApiSettings.apiKey)&page=\(page)"
+        let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(sectionString)?api_key=\(ApiSettings.apiKey)&page=\(page)"
         
         print (urlStr)
         remoteDatamanager?.movieFetch(urlString: urlStr, success: { json in

@@ -17,11 +17,9 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
         
         DispatchQueue.global(qos: .background).async {
             
-            let request =   Alamofire.request(urlString, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            let request =   Alamofire.request(urlString, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             
          
-            
-            
             request.responseJSON(completionHandler: { dataResponse in
                 
                 

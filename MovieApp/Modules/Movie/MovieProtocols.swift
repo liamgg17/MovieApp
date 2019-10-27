@@ -32,7 +32,7 @@ protocol MoviePresenterProtocol: class {
     var movie: [MovieEntity] { get }
     var shouldFetchNextPageMovies: Bool { get }
     var shouldSearchMovie: Bool { get set }
-   
+    var  sectionTitle: String { get }
     func changeSection(from section: Section)
     func fetchNextPage()
     func fetchMovies(from section: Section)

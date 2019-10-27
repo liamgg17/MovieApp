@@ -26,6 +26,7 @@ class MovieView: UIViewController {
        
         self.initMoviesCollectionView()
         self.initSegmentedControl()
+        self.initSearchControl()
         self.presenter!.fetchMovies(from: .popular)
         
     }
@@ -36,23 +37,47 @@ class MovieView: UIViewController {
         let segmentedControl = UISegmentedControl(items : items)
         segmentedControl.center = self.view.center
         segmentedControl.selectedSegmentIndex = 0
-      //  segmentedControl.addTarget(self, action: #selector(ViewController.indexChanged(_:)), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(self.sectionChanged(_:)), for: .valueChanged)
         
         segmentedControl.layer.cornerRadius = 10.0
         segmentedControl.backgroundColor = .clear
         segmentedControl.tintColor = .clear
         
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14),
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
             NSAttributedString.Key.foregroundColor: UIColor.lightGray
             ], for: .normal)
         
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14),
-            NSAttributedString.Key.foregroundColor: UIColor.orange
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
+            NSAttributedString.Key.foregroundColor: UIColor.red
             ], for: .selected)
         
         self.navigationItem.titleView = segmentedControl
+        
+    }
+    
+    func initSearchControl() {
+        
+        let search = UISearchController(searchResultsController: nil)
+        search.searchBar.delegate = self
+        search.searchBar.tintColor = .red
+        search.obscuresBackgroundDuringPresentation = true
+        
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = search
+            self.navigationItem.hidesSearchBarWhenScrolling = true
+        }
+        
+    }
+    
+    
+    @objc func sectionChanged(_ control: UISegmentedControl) {
+        guard let section = Section(rawValue: control.selectedSegmentIndex) else { return }
+    
+            self.moviesCollectionView.setContentOffset(.zero, animated: true)
+            self.presenter!.fetchMovies(from: section)
+            self.navigationItem.title = self.presenter?.sectionTitle
         
     }
     
@@ -65,13 +90,30 @@ class MovieView: UIViewController {
         self.moviesCollectionView.delegate = self
         
         CollectionMovieCell.register(self.moviesCollectionView)
-//        LoadingCollectionReusableView.registerOn(self.collectionView,
-//                                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter)
-        
-        
+   
     }
     
   
+}
+
+
+// MARK: - UISearchBarDelegate
+
+extension MovieView: UISearchBarDelegate {
+    
+    // MARK: - Métodos
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+      //  self.presenter.shouldSearchMovie = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //self.presenter.searchMovie(byTitle: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //self.presenter.shouldSearchMovie = false
+    }
 }
 
 
@@ -79,7 +121,7 @@ class MovieView: UIViewController {
 
 extension MovieView: UICollectionViewDataSource {
     
-    // MARK: - Internal Methods
+    // MARK: - Métodos
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -99,11 +141,12 @@ extension MovieView: UICollectionViewDataSource {
 
 }
 
+
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension MovieView: UICollectionViewDelegateFlowLayout {
     
-    // MARK: - Private Properties
+    // MARK: - Propiedades
     
     private var insetForSections: UIEdgeInsets {
         return UIEdgeInsets(top: 2.0, left: 0.0, bottom: 2.0, right: 0.0)
@@ -197,7 +240,7 @@ extension MovieView: MovieViewProtocol {
       
         print(self.presenter!.movie.count)
         if self.presenter!.movie.count > 20 {
-            for index in 0..<20{
+            for _ in 0..<20{
                indexPaths.append(IndexPath(item: self.presenter!.movie.count - 20 + 1, section: 0))
                 
                 // MEJORAR
