@@ -23,12 +23,41 @@ class MovieView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter?.viewDidLoad()
-        self.setupMoviesCollectionView()
+       
+        self.initMoviesCollectionView()
+        self.initSegmentedControl()
+        self.presenter!.fetchMovies(from: .popular)
         
     }
     
-    private func setupMoviesCollectionView() {
+    private func initSegmentedControl() {
+        
+        let items = ["Popular" , "Top Rated", "Upcoming"]
+        let segmentedControl = UISegmentedControl(items : items)
+        segmentedControl.center = self.view.center
+        segmentedControl.selectedSegmentIndex = 0
+      //  segmentedControl.addTarget(self, action: #selector(ViewController.indexChanged(_:)), for: .valueChanged)
+        
+        segmentedControl.layer.cornerRadius = 10.0
+        segmentedControl.backgroundColor = .clear
+        segmentedControl.tintColor = .clear
+        
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+            ], for: .normal)
+        
+        segmentedControl.setTitleTextAttributes([
+            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14),
+            NSAttributedString.Key.foregroundColor: UIColor.orange
+            ], for: .selected)
+        
+        self.navigationItem.titleView = segmentedControl
+        
+    }
+    
+ 
+    private func initMoviesCollectionView() {
         
         // Configuración de la celda customizada
         
@@ -42,9 +71,7 @@ class MovieView: UIViewController {
         
     }
     
-    
-    
-    
+  
 }
 
 
@@ -65,16 +92,11 @@ extension MovieView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionMovieCell", for: indexPath) as? CollectionMovieCell else { return UICollectionViewCell() }
       
         cell.setValuesForFields(with: self.presenter!.movie[indexPath.item])
-   
+        
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView,
-//                        viewForSupplementaryElementOfKind kind: String,
-//                        at indexPath: IndexPath) -> UICollectionReusableView {
-//       guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingCollectionReusableView.reuseIdentifier, for: indexPath) as? LoadingCollectionReusableView, kind == UICollectionView.elementKindSectionFooter else { return UICollectionReusableView() }
-//        return footerView
-//    }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -124,8 +146,8 @@ extension MovieView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        let footerSize = CGSize(width: self.view.frame.size.width, height: 20.0)
-        return !self.presenter!.shouldFetchNextPageMovies ? .zero : footerSize
+        let footerSize = CGSize(width: self.view.frame.size.width, height: 40.0)
+        return footerSize
     }
 }
 
@@ -139,12 +161,9 @@ extension MovieView: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         
-        
-        
         let lastRowIndex = collectionView.numberOfItems(inSection: indexPath.section) - 1
-        
-        if lastRowIndex == indexPath.row && self.presenter!.shouldFetchNextPageMovies {
-            self.presenter!.fetchNextPageMovies()
+        if lastRowIndex == indexPath.row {
+        self.presenter!.fetchNextPage()
         }
     }
     
@@ -175,10 +194,16 @@ extension MovieView: MovieViewProtocol {
     func addNewMovies() {
         
         var indexPaths: [IndexPath] = []
-        
-        for (index, movie) in self.presenter!.movie.enumerated()  {
-            indexPaths.append(IndexPath(item: index, section: 0))
+      
+        print(self.presenter!.movie.count)
+        if self.presenter!.movie.count > 20 {
+            for index in 0..<20{
+               indexPaths.append(IndexPath(item: self.presenter!.movie.count - 20 + 1, section: 0))
+                
+                // MEJORAR
+            }
         }
+        
         
         self.moviesCollectionView.performBatchUpdates({
             self.moviesCollectionView.insertItems(at: indexPaths)

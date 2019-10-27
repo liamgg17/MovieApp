@@ -30,14 +30,12 @@ protocol MoviePresenterProtocol: class {
     var interactor: MovieInteractorInputProtocol? { get set }
     var wireFrame: MovieWireFrameProtocol? { get set }
     var movie: [MovieEntity] { get }
-  
     var shouldFetchNextPageMovies: Bool { get }
     var shouldSearchMovie: Bool { get set }
-    
    
-    
-    func fetchNextPageMovies()
-    func viewDidLoad()
+    func changeSection(from section: Section)
+    func fetchNextPage()
+    func fetchMovies(from section: Section)
 }
 
 protocol MovieInteractorOutputProtocol: class {
@@ -55,9 +53,11 @@ protocol MovieInteractorInputProtocol: class {
     var localDatamanager: MovieLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol? { get set }
     
-     var moviesSection: SectionEntity? { get }
+    var moviesSection: SectionEntity? { get }
     
-    func movieFetch()
+   
+    
+     func movieFetch(section: Section, page: Int)
     
 }
 

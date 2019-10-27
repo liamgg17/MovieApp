@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="163" height="285"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFn-9O-xSa" customClass="View" customModule="MovieApp" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFn-9O-xSa">
                         <rect key="frame" x="0.0" y="0.0" width="163" height="285"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgK-jb-Bya" userLabel="BackgroundView" customClass="UIImageView">

@@ -19,7 +19,7 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
             
             let request =   Alamofire.request(urlString, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             
-            
+         
             
             
             request.responseJSON(completionHandler: { dataResponse in
@@ -29,10 +29,7 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
                 case .success(let result):
                     
                     let json: JSON = result as? JSON ?? [:]
-                    
-                    print("JSON: \(json)")
-                    
-                    success(json)
+                     success(json)
                     
                 case .failure(_): break
                     //case .failure(let error): break

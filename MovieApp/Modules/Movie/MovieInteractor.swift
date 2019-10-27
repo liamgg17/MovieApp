@@ -18,55 +18,61 @@ enum SectionType: Int {
 
 
 class MovieInteractor: MovieInteractorInputProtocol {
-   
-    
-    var moviesSection: SectionEntity?
-    
   
-    // MARK: Propiedades
     
+    
+
+  
+    // MARK: Propiedades VIPER
+    
+
     weak var presenter: MovieInteractorOutputProtocol?
     var localDatamanager: MovieLocalDataManagerInputProtocol?
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol?
     
     
+    private(set) var moviesSection: SectionEntity?
+    
     private var isLoading: Bool = false
     
     
-  
-    func movieFetch() {
-
-     let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/popular?api_key=\(ApiSettings.apiKey)&page=1"
+    
+    func movieFetch(section: Section, page: Int) {
+    
+        let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(section)?api_key=\(ApiSettings.apiKey)&page=\(page)"
         
+        print (urlStr)
         remoteDatamanager?.movieFetch(urlString: urlStr, success: { json in
             
-            guard let moviesSection = SectionEntity(JSON: json) else {
+            guard let movieSection = SectionEntity(JSON: json) else {
                 NetworkError.error(.internalError)
                 return
             }
             
-            guard let page = moviesSection.page,
-                let movies = moviesSection.movies else {
+            guard let page = movieSection.page,
+                let movies = movieSection.movies else {
                     self.presenter!.fetchMoviesDidFailed(.error(.internalError))
                     return
             }
             
             if page > 1 {
                 
-                var currentMovies: [MovieEntity] = moviesSection.movies ?? []
+                var currentMovies: [MovieEntity] = self.moviesSection!.movies ?? []
                 currentMovies.append(contentsOf: movies)
-                self.moviesSection = moviesSection
-                self.moviesSection!.movies = currentMovies
+                self.moviesSection = movieSection
+                self.moviesSection?.movies = currentMovies
             } else {
-                self.moviesSection = moviesSection
+                self.moviesSection = movieSection
             }
             
             self.presenter?.fetchMoviesDidSucceed()
             
         })
         
-      
+        
     }
+  
+ 
     
     
     

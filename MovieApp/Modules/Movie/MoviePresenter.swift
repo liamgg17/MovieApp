@@ -8,6 +8,14 @@
 
 import Foundation
 
+enum Section: Int {
+   
+    case popular
+    case topRated
+    case upcoming
+}
+
+
 class MoviePresenter  {
     
     // MARK: Properties
@@ -15,6 +23,7 @@ class MoviePresenter  {
     var interactor: MovieInteractorInputProtocol?
     var wireFrame: MovieWireFrameProtocol?
     private var isLoading: Bool = false
+  
     
     var movie: [MovieEntity] {
         guard let movies = self.interactor?.moviesSection?.movies else { return [] }
@@ -28,9 +37,17 @@ class MoviePresenter  {
         return movies
     }
     
+    private var currentSection: Section = .popular {
+        
+        didSet {
+            self.isLoading = true
+            self.interactor?.movieFetch(section: .popular, page: 1)
+        }
+    }
+    
     private var currentPage: Int {
-       // return self.interactor.moviesCategory?.page ?? 1
-        return 1
+        return self.interactor?.moviesSection?.page ?? 1
+        
     }
     
     var shouldFetchNextPageMovies: Bool {
@@ -57,29 +74,29 @@ class MoviePresenter  {
 
 extension MoviePresenter: MoviePresenterProtocol {
   
+  
     
    
     // TODO: Implementación de los métodos del Presenter
-    func viewDidLoad() {
-        
-        print("hola")
-        interactor?.movieFetch()
-        
+  
+    
+    func fetchMovies(from section: Section) {
+        self.currentSection = section
     }
-    
 
-//    func fetchMovies(from section: MoviesSectionType) {
-//        self.currentSection = section
-//    }
-    
+    func changeSection(from sectionType: Section) {
+        self.currentSection = sectionType
+    }
+  
     func reloadMovies() {
        // self.isLoading = true
        // self.interactor.fetchMovies(from: self.currentSection, atPage: 1)
     }
     
-    func fetchNextPageMovies() {
-       // self.isLoading = true
-        //self.interactor.fetchMovies(from: self.currentSection, atPage: self.currentPage + 1)
+    func fetchNextPage() {
+      
+        self.isLoading = true
+        self.interactor?.movieFetch(section: self.currentSection, page: self.currentPage + 1)
     }
     
     func searchMovie(byTitle title: String) {

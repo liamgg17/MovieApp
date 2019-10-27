@@ -23,7 +23,14 @@ class SectionEntity: NSObject, Mappable {
    
     // MARK:  Métodos
     
-    required init?(map: Map) {}
+    override init() {
+        super.init()
+    }
+    
+    convenience required init?(map: Map) {
+        self.init()
+    }
+
     
     
     // Mapeo del objeto Sección
