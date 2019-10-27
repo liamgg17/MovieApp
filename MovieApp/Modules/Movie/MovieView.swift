@@ -62,10 +62,11 @@ class MovieView: UIViewController {
         let search = UISearchController(searchResultsController: nil)
         search.searchBar.delegate = self
         search.searchBar.tintColor = .red
-        search.obscuresBackgroundDuringPresentation = true
-        
+        search.obscuresBackgroundDuringPresentation = false
+        search.definesPresentationContext = true
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = search
+            
             self.navigationItem.hidesSearchBarWhenScrolling = true
         }
         
@@ -104,20 +105,26 @@ extension MovieView: UISearchBarDelegate {
     // MARK: - Métodos
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-      //  self.presenter.shouldSearchMovie = true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //self.presenter.searchMovie(byTitle: searchText)
+        self.presenter!.shouldSearchMovie = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //self.presenter.shouldSearchMovie = false
+        self.presenter!.shouldSearchMovie = false
+    }
+    
+  
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+     
+        searchBar.resignFirstResponder()
+        self.presenter!.searchMovie(title: searchBar.text!)
     }
 }
 
 
 // MARK: - UICollectionViewDataSource
+
 
 extension MovieView: UICollectionViewDataSource {
     

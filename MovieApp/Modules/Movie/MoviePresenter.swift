@@ -28,13 +28,18 @@ class MoviePresenter  {
     var movie: [MovieEntity] {
         guard let movies = self.interactor?.moviesSection?.movies else { return [] }
         
-//        if self.searchMovieTitle.isEmpty {
-//            return movies
-//        } else {
-//            return movies.filter({ $0.title?.lowercased().contains(self.searchMovieTitle) ?? false })
-//        }
-        
-        return movies
+       if self.searchMovieTitle.isEmpty {
+            return movies
+        } else {
+            return movies.filter({ $0.title?.lowercased().contains(self.searchMovieTitle) ?? false })
+            
+        }
+      }
+    
+    private var searchMovieTitle: String = "" {
+        didSet {
+            self.view!.reloadMovies()
+        }
     }
     
     private var currentSection: Section = .popular {
@@ -51,35 +56,24 @@ class MoviePresenter  {
     }
     
     var shouldFetchNextPageMovies: Bool {
-        //   let totalPages: Int? = self.interactor.moviesCategory?.totalPages
-        
-        let totalPages: Int? = 1
+       
         let isConnectedToInternet: Bool = NetworkError.isConnectedToInternet
-        return !self.isLoading && self.currentPage != totalPages && !self.shouldSearchMovie && isConnectedToInternet
+        return !self.isLoading  && !self.shouldSearchMovie && isConnectedToInternet
     }
     
     var shouldSearchMovie: Bool = false {
         didSet {
             guard !self.shouldSearchMovie else { return }
-         //   self.searchMovieTitle = ""
+            self.searchMovieTitle = ""
         }
     }
     
-    
- 
-    
-    
-    
+   
 }
 
 extension MoviePresenter: MoviePresenterProtocol {
     
     
-  
-   
-  
-    
-   
     // TODO: Implementación de los métodos del Presenter
   
     
@@ -102,8 +96,8 @@ extension MoviePresenter: MoviePresenterProtocol {
         self.interactor?.movieFetch(section: self.currentSection, page: self.currentPage + 1)
     }
     
-    func searchMovie(byTitle title: String) {
-     //   self.searchMovieTitle = title.lowercased()
+    func searchMovie(title: String) {
+        self.searchMovieTitle = title.lowercased()
     }
     
     func didSelectMovie(_ movie: MovieEntity) {
