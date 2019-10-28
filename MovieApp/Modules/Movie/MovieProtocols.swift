@@ -22,6 +22,8 @@ protocol MovieViewProtocol: class {
 protocol MovieWireFrameProtocol: class {
     // Presenter -> Wireframe
     static func createMovieModule() -> UIViewController
+   
+    func presentMovieDetail(from: MovieViewProtocol, movie: MovieEntity)
 }
 
 protocol MoviePresenterProtocol: class {
@@ -33,11 +35,12 @@ protocol MoviePresenterProtocol: class {
     var shouldFetchNextPageMovies: Bool { get }
     var shouldSearchMovie: Bool { get set }
     var  sectionTitle: String { get }
-   
+    func selectMovie(_ movie: MovieEntity)
     func changeSection(from section: Section)
     func fetchNextPage()
     func fetchMovies(from section: Section)
     func searchMovie(title: String)
+    
 }
 
 protocol MovieInteractorOutputProtocol: class {
@@ -57,9 +60,7 @@ protocol MovieInteractorInputProtocol: class {
     
     var moviesSection: SectionEntity? { get }
     
-   
-    
-     func movieFetch(section: Section, page: Int)
+   func movieFetch(section: Section, page: Int)
     
 }
 
@@ -70,7 +71,6 @@ protocol MovieDataManagerInputProtocol: class {
 protocol MovieRemoteDataManagerInputProtocol: class {
     // INTERACTOR -> REMOTEDATAMANAGER
     var remoteRequestHandler: MovieRemoteDataManagerOutputProtocol? { get set }
-
     func movieFetch(urlString:String, success: @escaping (JSON) -> Void)
 
 }

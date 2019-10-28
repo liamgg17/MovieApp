@@ -50,7 +50,7 @@ class MovieView: UIViewController {
         
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
-            NSAttributedString.Key.foregroundColor: UIColor.red
+            NSAttributedString.Key.foregroundColor: UIColor(red: 250/255, green: 58/255, blue: 94/255, alpha: 1.0)
             ], for: .selected)
         
         self.navigationItem.titleView = segmentedControl
@@ -219,8 +219,9 @@ extension MovieView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-            guard self.presenter!.movie.indices.contains(indexPath.item) else { return }
-         //   self.presenter.didSelectMovie(self.presenter.movies[indexPath.item])
+        guard self.presenter!.movie.indices.contains(indexPath.item) else { return }
+        
+        self.presenter!.selectMovie(self.presenter!.movie[indexPath.item])
         
     }
     

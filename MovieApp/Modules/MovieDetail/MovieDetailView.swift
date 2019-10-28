@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 
+
 class MovieDetailView: UIViewController {
+    
+ 
 
     // MARK: Properties
     var presenter: MovieDetailPresenterProtocol?
@@ -18,6 +21,18 @@ class MovieDetailView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     
+    }
+    
+    @objc func dismissAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+       
     }
 }
 

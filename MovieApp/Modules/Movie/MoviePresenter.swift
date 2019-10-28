@@ -72,6 +72,8 @@ class MoviePresenter  {
 }
 
 extension MoviePresenter: MoviePresenterProtocol {
+   
+    
     
     
     // TODO: Implementación de los métodos del Presenter
@@ -100,9 +102,12 @@ extension MoviePresenter: MoviePresenterProtocol {
         self.searchMovieTitle = title.lowercased()
     }
     
-    func didSelectMovie(_ movie: MovieEntity) {
-      //  self.wireframe.presentDetails(from: movie)
+    func selectMovie(_ movie: MovieEntity) {
+        
+        self.wireFrame?.presentMovieDetail(from:view!, movie: movie)
     }
+    
+    
     
     
     var sectionTitle: String {

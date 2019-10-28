@@ -8,8 +8,12 @@
 
 import Foundation
 import UIKit
+import SPStorkController
 
 class MovieWireFrame: MovieWireFrameProtocol {
+   
+    
+    private(set) weak var view: MovieView!
 
     class func createMovieModule() -> UIViewController {
         let navController = mainStoryboard.instantiateViewController(withIdentifier: "MovieView")
@@ -38,4 +42,19 @@ class MovieWireFrame: MovieWireFrameProtocol {
         return UIStoryboard(name: "Movie", bundle: Bundle.main)
     }
     
+    func presentMovieDetail(from: MovieViewProtocol, movie: MovieEntity) {
+        
+        // Se crea e instancia el módulo de detalle
+        
+       let movieDetail = MovieDetailWireFrame.createMovieDetailModule()
+        
+        
+        if let view = from as? UIViewController {
+            
+          //  view.presentAsStork(movieDetail)
+            view.navigationController?.pushViewController(movieDetail, animated: true)
+        }
+    }
+   
+  
 }
