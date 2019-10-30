@@ -16,7 +16,7 @@ struct ApiSettings {
     static let apiKey: String = "1d079f5ea0422f9924048bb364ca89ab"
     
     
-    static func fetchImage(fromPath path: String) -> String {
+    static func getImage(fromPath path: String) -> String {
         return "https://image.tmdb.org/t/p/w500/\(path)"
     }
    

@@ -32,35 +32,36 @@ protocol MoviePresenterProtocol: class {
     var interactor: MovieInteractorInputProtocol? { get set }
     var wireFrame: MovieWireFrameProtocol? { get set }
     var movie: [MovieEntity] { get }
-    var shouldFetchNextPageMovies: Bool { get }
+    var shouldGetNextPageMovies: Bool { get }
     var shouldSearchMovie: Bool { get set }
-    var  sectionTitle: String { get }
+    var sectionTitle: String { get }
     func selectMovie(_ movie: MovieEntity)
     func changeSection(from section: Section)
-    func fetchNextPage()
-    func fetchMovies(from section: Section)
+    func getNextPage()
+    func getMovies(from section: Section)
     func searchMovie(title: String)
     
 }
 
 protocol MovieInteractorOutputProtocol: class {
-// INTERACTOR -> PRESENTER
+    // INTERACTOR -> PRESENTER
     
-    func fetchMoviesDidSucceed()
-    func fetchMoviesDidFailed(_ error: NetworkError)
+    func getMoviesDidSucceed()
+    func getMoviesDidFailed(_ error: NetworkError)
     
     
 }
 
 protocol MovieInteractorInputProtocol: class {
     // PRESENTER -> INTERACTOR
+    
     var presenter: MovieInteractorOutputProtocol? { get set }
     var localDatamanager: MovieLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol? { get set }
     
     var moviesSection: SectionEntity? { get }
     
-   func movieFetch(section: Section, page: Int)
+    func getMovie(section: Section, page: Int)
     
 }
 
@@ -71,7 +72,7 @@ protocol MovieDataManagerInputProtocol: class {
 protocol MovieRemoteDataManagerInputProtocol: class {
     // INTERACTOR -> REMOTEDATAMANAGER
     var remoteRequestHandler: MovieRemoteDataManagerOutputProtocol? { get set }
-    func movieFetch(urlString:String, success: @escaping (JSON) -> Void)
+    func getMovie(urlString:String, success: @escaping (JSON) -> Void)
 
 }
 

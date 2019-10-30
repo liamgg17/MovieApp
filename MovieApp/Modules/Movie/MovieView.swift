@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class MovieView: UIViewController {
 
     // MARK: Properties
@@ -18,7 +19,7 @@ class MovieView: UIViewController {
     
     @IBOutlet weak var moviesCollectionView: UICollectionView!
 
-    // MARK: Lifecycle
+    // MARK: Lifecyle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,9 @@ class MovieView: UIViewController {
         self.initMoviesCollectionView()
         self.initSegmentedControl()
         self.initSearchControl()
-        self.presenter!.fetchMovies(from: .popular)
+        self.presenter!.getMovies(from: .popular)
+        
+        self.showLoader()
         
     }
     
@@ -50,7 +53,7 @@ class MovieView: UIViewController {
         
         segmentedControl.setTitleTextAttributes([
             NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
-            NSAttributedString.Key.foregroundColor: UIColor(red: 250/255, green: 58/255, blue: 94/255, alpha: 1.0)
+            NSAttributedString.Key.foregroundColor: UIColor.primaryColor
             ], for: .selected)
         
         self.navigationItem.titleView = segmentedControl
@@ -77,7 +80,7 @@ class MovieView: UIViewController {
         guard let section = Section(rawValue: control.selectedSegmentIndex) else { return }
     
             self.moviesCollectionView.setContentOffset(.zero, animated: true)
-            self.presenter!.fetchMovies(from: section)
+            self.presenter!.getMovies(from: section)
             self.navigationItem.title = self.presenter?.sectionTitle
         
     }
@@ -91,7 +94,7 @@ class MovieView: UIViewController {
         self.moviesCollectionView.delegate = self
         
         CollectionMovieCell.register(self.moviesCollectionView)
-   
+    
     }
     
   
@@ -213,7 +216,7 @@ extension MovieView: UICollectionViewDelegate {
         
         let lastRowIndex = collectionView.numberOfItems(inSection: indexPath.section) - 1
         if lastRowIndex == indexPath.row {
-        self.presenter!.fetchNextPage()
+        self.presenter!.getNextPage()
         }
     }
     
@@ -226,8 +229,7 @@ extension MovieView: UICollectionViewDelegate {
     }
     
   
-    
-   
+
 }
 
 
@@ -238,8 +240,8 @@ extension MovieView: MovieViewProtocol {
     func reloadMovies() {
        
         self.moviesCollectionView.reloadData()
-        //self.view.hideActivityIndicator()
-       // self.refreshControl.endRefreshing()
+        self.hideLoader()
+    
     }
     
     func addNewMovies() {

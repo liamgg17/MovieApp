@@ -19,10 +19,6 @@ enum SectionType: Int {
 
 class MovieInteractor: MovieInteractorInputProtocol {
   
-    
-    
-
-  
     // MARK: Propiedades VIPER
     
 
@@ -37,7 +33,7 @@ class MovieInteractor: MovieInteractorInputProtocol {
     
     
     
-    func movieFetch(section: Section, page: Int) {
+    func getMovie(section: Section, page: Int) {
         
         var sectionString: String = ""
         
@@ -53,7 +49,7 @@ class MovieInteractor: MovieInteractorInputProtocol {
         let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(sectionString)?api_key=\(ApiSettings.apiKey)&page=\(page)"
         
         print (urlStr)
-        remoteDatamanager?.movieFetch(urlString: urlStr, success: { json in
+        remoteDatamanager?.getMovie(urlString: urlStr, success: { json in
             
             guard let movieSection = SectionEntity(JSON: json) else {
                 NetworkError.error(.internalError)
@@ -62,7 +58,7 @@ class MovieInteractor: MovieInteractorInputProtocol {
             
             guard let page = movieSection.page,
                 let movies = movieSection.movies else {
-                    self.presenter!.fetchMoviesDidFailed(.error(.internalError))
+                    self.presenter!.getMoviesDidFailed(.error(.internalError))
                     return
             }
             
@@ -76,17 +72,13 @@ class MovieInteractor: MovieInteractorInputProtocol {
                 self.moviesSection = movieSection
             }
             
-            self.presenter?.fetchMoviesDidSucceed()
+            self.presenter?.getMoviesDidSucceed()
             
         })
         
         
     }
   
- 
-    
-    
-    
 }
 
 

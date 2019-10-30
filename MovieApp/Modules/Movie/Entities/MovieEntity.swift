@@ -19,10 +19,15 @@ class MovieEntity:  NSObject, Mappable {
     var title: String?
     var overview: String?
     var budget: Double?
+    var voteAverage : Double?
+    var popularity : Double?
     var revenue: Double?
-    var releaseDate: Date?
-    var genres: [String]?
+    var releaseDate: String?
     var posterPath: String?
+    var backdropPathURL: String?
+    var runtime : Int?
+    var videos: [VideoEntity]?
+    
     
     // MARK:  Métodos
     
@@ -46,9 +51,12 @@ class MovieEntity:  NSObject, Mappable {
         self.budget <- map["budget"]
         self.revenue <- map["revenue"]
         self.releaseDate <- map["release_date"]
-//       if let genres = map.JSON["genres"] as? String: Any { self.genres = genres.compactMap({ $0["name"] as? String })
-//        }
         self.posterPath <- map["poster_path"]
+        self.backdropPathURL <- map["backdrop_path"]
+        self.videos <- map["videos.results"]
+        self.voteAverage <- map["vote_average"]
+        self.popularity <- map["popularity"]
+        self.runtime <- map["runtime"]
         
   
     }

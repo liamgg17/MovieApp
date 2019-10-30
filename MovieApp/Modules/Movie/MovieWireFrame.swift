@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SPStorkController
+
 
 class MovieWireFrame: MovieWireFrameProtocol {
    
@@ -46,12 +46,12 @@ class MovieWireFrame: MovieWireFrameProtocol {
         
         // Se crea e instancia el módulo de detalle
         
-       let movieDetail = MovieDetailWireFrame.createMovieDetailModule()
+        let movieDetail = MovieDetailWireFrame.createMovieDetailModule(movie: movie)
         
         
         if let view = from as? UIViewController {
             
-          //  view.presentAsStork(movieDetail)
+  
             view.navigationController?.pushViewController(movieDetail, animated: true)
         }
     }

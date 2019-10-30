@@ -46,7 +46,7 @@ class MoviePresenter  {
         
         didSet {
             self.isLoading = true
-            self.interactor?.movieFetch(section: self.currentSection, page: 1)
+            self.interactor?.getMovie(section: self.currentSection, page: 1)
         }
     }
     
@@ -55,7 +55,7 @@ class MoviePresenter  {
         
     }
     
-    var shouldFetchNextPageMovies: Bool {
+    var shouldGetNextPageMovies: Bool {
        
         let isConnectedToInternet: Bool = NetworkError.isConnectedToInternet
         return !self.isLoading  && !self.shouldSearchMovie && isConnectedToInternet
@@ -79,7 +79,7 @@ extension MoviePresenter: MoviePresenterProtocol {
     // TODO: Implementación de los métodos del Presenter
   
     
-    func fetchMovies(from section: Section) {
+    func getMovies(from section: Section) {
         self.currentSection = section
     }
 
@@ -89,13 +89,13 @@ extension MoviePresenter: MoviePresenterProtocol {
   
     func reloadMovies() {
         self.isLoading = true
-        self.interactor?.movieFetch(section: self.currentSection, page: 1)
+        self.interactor?.getMovie(section: self.currentSection, page: 1)
     }
     
-    func fetchNextPage() {
+    func getNextPage() {
       
         self.isLoading = true
-        self.interactor?.movieFetch(section: self.currentSection, page: self.currentPage + 1)
+        self.interactor?.getMovie(section: self.currentSection, page: self.currentPage + 1)
     }
     
     func searchMovie(title: String) {
@@ -128,7 +128,7 @@ extension MoviePresenter: MoviePresenterProtocol {
 extension MoviePresenter: MovieInteractorOutputProtocol {
   
     
-    func fetchMoviesDidSucceed() {
+    func getMoviesDidSucceed() {
         
         self.isLoading = false
         
@@ -140,7 +140,7 @@ extension MoviePresenter: MovieInteractorOutputProtocol {
         }
     }
     
-    func fetchMoviesDidFailed(_ error: NetworkError) {
+    func getMoviesDidFailed(_ error: NetworkError) {
         self.isLoading = false
         
         if error.type == .networkError {

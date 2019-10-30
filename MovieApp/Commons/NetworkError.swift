@@ -13,7 +13,7 @@ enum NetworkError {
     
     // MARK: - Definitions
     struct Error {
-        static let networkError: String = "Problema en la conexióna Internet. Inténtalo de nuevo."
+        static let networkError: String = "Problema en la conexión a Internet. Inténtalo de nuevo."
         static let internalError: String = "Ups, ha ocurrido un error. Inténtalo de nuevo"
     }
     

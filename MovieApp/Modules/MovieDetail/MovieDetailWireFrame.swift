@@ -11,11 +11,11 @@ import UIKit
 
 class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
 
-    class func createMovieDetailModule() -> UIViewController {
+    class func createMovieDetailModule(movie: MovieEntity) -> UIViewController {
         let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailView")
         if let view = viewController as? MovieDetailView {
             let presenter: MovieDetailPresenterProtocol & MovieDetailInteractorOutputProtocol = MovieDetailPresenter()
-            let interactor: MovieDetailInteractorInputProtocol & MovieDetailRemoteDataManagerOutputProtocol = MovieDetailInteractor()
+            let interactor: MovieDetailInteractorInputProtocol & MovieDetailRemoteDataManagerOutputProtocol = MovieDetailInteractor(movie: movie)
             let localDataManager: MovieDetailLocalDataManagerInputProtocol = MovieDetailLocalDataManager()
             let remoteDataManager: MovieDetailRemoteDataManagerInputProtocol = MovieDetailRemoteDataManager()
             let wireFrame: MovieDetailWireFrameProtocol = MovieDetailWireFrame()

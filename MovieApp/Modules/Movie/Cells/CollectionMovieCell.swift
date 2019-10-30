@@ -24,7 +24,6 @@ class CollectionMovieCell: UICollectionViewCell {
         // Initialization code
         
         self.title.text = nil
-  //      self.background.image = nil
         self.imageView.image = nil
         self.imageView.stopDownloadImage()
     }
@@ -37,11 +36,12 @@ class CollectionMovieCell: UICollectionViewCell {
     func setValuesForFields(with movie: MovieEntity) {
         
         self.title.text = movie.title
-        self.category.text =  movie.title
+        self.category.text =  movie.releaseDate
+        self.category.textColor = UIColor.primaryColor
         
         if let movieImagePath = movie.posterPath  {
             
-            let urlString = ApiSettings.fetchImage(fromPath: movieImagePath)
+            let urlString = ApiSettings.getImage(fromPath: movieImagePath)
             self.imageView.downloadImage(fromURLString: urlString) 
         }
     }

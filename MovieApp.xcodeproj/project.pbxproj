@@ -16,6 +16,12 @@
 		F84E00BF23665F7400F94280 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B823665F7400F94280 /* MovieDetailView.swift */; };
 		F84E00C023665F7400F94280 /* MovieDetailWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00B923665F7400F94280 /* MovieDetailWireFrame.swift */; };
 		F84E00C4236661EB00F94280 /* MovieDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F84E00C3236661EB00F94280 /* MovieDetail.storyboard */; };
+		F84E00C62367D33C00F94280 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00C52367D33C00F94280 /* UIViewControllerExtension.swift */; };
+		F84E00C82367D3F200F94280 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84E00C72367D3F200F94280 /* UIColorExtension.swift */; };
+		F8ADC4802368BC1D0003C848 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADC47F2368BC1D0003C848 /* UIViewExtension.swift */; };
+		F8ADC4832368CD240003C848 /* VideoEntitiy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADC4822368CD240003C848 /* VideoEntitiy.swift */; };
+		F8ADC4852368F7010003C848 /* NSMutableAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADC4842368F7010003C848 /* NSMutableAttributedStringExtension.swift */; };
+		F8ADC48723690A130003C848 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ADC48623690A130003C848 /* DoubleExtension.swift */; };
 		F8B611B9235FF0B600971D06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B611B8235FF0B600971D06 /* AppDelegate.swift */; };
 		F8B611BE235FF0B600971D06 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B611BC235FF0B600971D06 /* Movie.storyboard */; };
 		F8B611C0235FF0B700971D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8B611BF235FF0B700971D06 /* Assets.xcassets */; };
@@ -63,6 +69,12 @@
 		F84E00B823665F7400F94280 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		F84E00B923665F7400F94280 /* MovieDetailWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailWireFrame.swift; sourceTree = "<group>"; };
 		F84E00C3236661EB00F94280 /* MovieDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MovieDetail.storyboard; sourceTree = "<group>"; };
+		F84E00C52367D33C00F94280 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		F84E00C72367D3F200F94280 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		F8ADC47F2368BC1D0003C848 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		F8ADC4822368CD240003C848 /* VideoEntitiy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEntitiy.swift; sourceTree = "<group>"; };
+		F8ADC4842368F7010003C848 /* NSMutableAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtension.swift; sourceTree = "<group>"; };
+		F8ADC48623690A130003C848 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		F8B611B5235FF0B600971D06 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B611B8235FF0B600971D06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8B611BD235FF0B600971D06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Movie.storyboard; sourceTree = "<group>"; };
@@ -117,6 +129,14 @@
 				B4BE7F847E052762C2E559B4 /* Pods-MovieAppTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F8ADC4812368CD010003C848 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				F8ADC4822368CD240003C848 /* VideoEntitiy.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		F8B611AC235FF0B600971D06 = {
@@ -190,6 +210,7 @@
 		F8B611DA236278C800971D06 /* MovieDetail */ = {
 			isa = PBXGroup;
 			children = (
+				F8ADC4812368CD010003C848 /* Entities */,
 				F84E00B323665F7400F94280 /* MovieDetailInteractor.swift */,
 				F84E00B423665F7400F94280 /* MovieDetailLocalDataManager.swift */,
 				F84E00B523665F7400F94280 /* MovieDetailPresenter.swift */,
@@ -233,7 +254,12 @@
 		F8F295132363EC3500C92DEC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F84E00C72367D3F200F94280 /* UIColorExtension.swift */,
 				F8F295142363EC5C00C92DEC /* UIImageViewExtension.swift */,
+				F84E00C52367D33C00F94280 /* UIViewControllerExtension.swift */,
+				F8ADC47F2368BC1D0003C848 /* UIViewExtension.swift */,
+				F8ADC4842368F7010003C848 /* NSMutableAttributedStringExtension.swift */,
+				F8ADC48623690A130003C848 /* DoubleExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -420,10 +446,13 @@
 				F8B611E22362791F00971D06 /* MovieInteractor.swift in Sources */,
 				F84E00C023665F7400F94280 /* MovieDetailWireFrame.swift in Sources */,
 				F84E00BD23665F7400F94280 /* MovieDetailProtocols.swift in Sources */,
+				F8ADC48723690A130003C848 /* DoubleExtension.swift in Sources */,
 				F8B611EE2362A52900971D06 /* MovieEntity.swift in Sources */,
 				F8B611E62362791F00971D06 /* MovieRemoteDataManager.swift in Sources */,
 				F8B611E32362791F00971D06 /* MovieLocalDataManager.swift in Sources */,
+				F8ADC4802368BC1D0003C848 /* UIViewExtension.swift in Sources */,
 				F8F295112363E59300C92DEC /* CollectionMovieCell.swift in Sources */,
+				F8ADC4832368CD240003C848 /* VideoEntitiy.swift in Sources */,
 				F84E00BA23665F7400F94280 /* MovieDetailInteractor.swift in Sources */,
 				F8B611EB23629EAC00971D06 /* ApiSettings.swift in Sources */,
 				F8B611E42362791F00971D06 /* MoviePresenter.swift in Sources */,
@@ -437,6 +466,9 @@
 				F84E00BB23665F7400F94280 /* MovieDetailLocalDataManager.swift in Sources */,
 				F8F295152363EC5C00C92DEC /* UIImageViewExtension.swift in Sources */,
 				F84E00BE23665F7400F94280 /* MovieDetailRemoteDataManager.swift in Sources */,
+				F8ADC4852368F7010003C848 /* NSMutableAttributedStringExtension.swift in Sources */,
+				F84E00C82367D3F200F94280 /* UIColorExtension.swift in Sources */,
+				F84E00C62367D33C00F94280 /* UIViewControllerExtension.swift in Sources */,
 				F8B611E82362791F00971D06 /* MovieWireFrame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

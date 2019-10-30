@@ -13,7 +13,9 @@ typealias JSON = [String: Any]
 typealias FailureR = (_ error: NetworkError) -> Void
 
 class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
-    func movieFetch(urlString: String, success: @escaping (JSON) -> Void) {
+    
+    
+    func getMovie(urlString: String, success: @escaping (JSON) -> Void) {
         
         DispatchQueue.global(qos: .background).async {
             
@@ -30,9 +32,7 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
                      success(json)
                     
                 case .failure(_): break
-                    //case .failure(let error): break
-                    
-                    //FailureR(NetworkError)
+                 
                 }
             })
         }
