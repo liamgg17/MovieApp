@@ -1,0 +1,36 @@
+PODS:
+  - Alamofire (4.9.0)
+  - Kingfisher (5.9.0):
+    - Kingfisher/Core (= 5.9.0)
+  - Kingfisher/Core (5.9.0)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
+  - ObjectMapper (3.5.1)
+  - YoutubePlayer-in-WKWebView (0.2.5)
+
+DEPENDENCIES:
+  - Alamofire
+  - Kingfisher
+  - NVActivityIndicatorView
+  - ObjectMapper (~> 3.4)
+  - YoutubePlayer-in-WKWebView (~> 0.2.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Kingfisher
+    - NVActivityIndicatorView
+    - ObjectMapper
+    - YoutubePlayer-in-WKWebView
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  YoutubePlayer-in-WKWebView: 4dad12b3ece938a6456fa4374df78942f88b485a
+
+PODFILE CHECKSUM: 622ba2362a5d167fc561f8e7b6ab1d8a470b0148
+
+COCOAPODS: 1.8.4
