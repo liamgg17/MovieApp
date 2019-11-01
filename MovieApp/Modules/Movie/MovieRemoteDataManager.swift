@@ -10,10 +10,18 @@ import Foundation
 import Alamofire
 
 typealias JSON = [String: Any]
-typealias FailureR = (_ error: NetworkError) -> Void
+typealias FailureR = (_ error: NetworkManager) -> Void
 
 class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
     
+    
+    /**
+     Función  que se encarga de realizar el request al Servidor para obtener el listado de películas
+     
+     :params: urlString String que contiene el endpoint que obtiene el listado de las películas
+     :returns: success Objeto JSON con la información obtenida
+     
+     */
     
     func getMovie(urlString: String, success: @escaping (JSON) -> Void) {
         
@@ -21,11 +29,9 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
             
             let request =   Alamofire.request(urlString, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             
-         
             request.responseJSON(completionHandler: { dataResponse in
                 
-                
-                switch dataResponse.result {
+                 switch dataResponse.result {
                 case .success(let result):
                     
                     let json: JSON = result as? JSON ?? [:]
@@ -39,15 +45,7 @@ class MovieRemoteDataManager:MovieRemoteDataManagerInputProtocol {
     }
     
     
-    
     var remoteRequestHandler: MovieRemoteDataManagerOutputProtocol?
     
-    
-    // Función para obtener las peliculas del servidor
-    
    
-   
-    
-    
-    
 }

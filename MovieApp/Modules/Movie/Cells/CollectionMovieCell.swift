@@ -20,12 +20,11 @@ class CollectionMovieCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // Initialization code
-        
+    
         self.title.text = nil
         self.imageView.image = nil
         self.imageView.stopDownloadImage()
+        
     }
     
     override func prepareForReuse() {
@@ -36,7 +35,7 @@ class CollectionMovieCell: UICollectionViewCell {
     func setValuesForFields(with movie: MovieEntity) {
         
         self.title.text = movie.title
-        self.category.text =  movie.releaseDate
+        self.category.text =  movie.releaseDate?.formattedString
         self.category.textColor = UIColor.primaryColor
         
         if let movieImagePath = movie.posterPath  {

@@ -11,7 +11,17 @@ import Alamofire
 
 class MovieDetailRemoteDataManager:MovieDetailRemoteDataManagerInputProtocol {
     
+   
     var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol?
+    
+    
+    /**
+     Función  que se encarga de realizar el request al Servidor para obtener el detalle de una película.
+     
+     :urlString: urlString String que contiene el endpoint que obtiene el listado de las películas
+     :returns: success Objeto JSON con la información obtenida
+     
+     */
     
     
     func getMovieDetail(urlString: String, success: @escaping (JSON) -> Void) {

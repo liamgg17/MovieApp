@@ -19,19 +19,26 @@ enum SectionType: Int {
 
 class MovieInteractor: MovieInteractorInputProtocol {
   
+   
     // MARK: Propiedades VIPER
     
 
     weak var presenter: MovieInteractorOutputProtocol?
-    var localDatamanager: MovieLocalDataManagerInputProtocol?
     var remoteDatamanager: MovieRemoteDataManagerInputProtocol?
     
+    // MARK: Porpiedades
     
     private(set) var moviesSection: SectionEntity?
-    
     private var isLoading: Bool = false
     
     
+    /**
+     Esta función se comunica con el Protocolo MovieRemoteDataManagerInputProtocol para solitar las películas de la sección seleccionada, en caso de obtener respuesta satisfactoria se comunica con el Presenter medainte el método getMoviesDidSucceed()
+     
+     :param: section Enum del tipo Sección
+     :param: page Int con el número de página
+    
+     */
     
     func getMovie(section: Section, page: Int) {
         
@@ -48,11 +55,13 @@ class MovieInteractor: MovieInteractorInputProtocol {
     
         let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(sectionString)?api_key=\(ApiSettings.apiKey)&page=\(page)"
         
-        print (urlStr)
+       
         remoteDatamanager?.getMovie(urlString: urlStr, success: { json in
             
+            
+            
             guard let movieSection = SectionEntity(JSON: json) else {
-                NetworkError.error(.internalError)
+                NetworkManager.error(.internalError)
                 return
             }
             
@@ -84,10 +93,7 @@ class MovieInteractor: MovieInteractorInputProtocol {
 
 
 extension MovieInteractor: MovieRemoteDataManagerOutputProtocol {
+  
     // TODO: Implement use case methods
-    
-    
-    
-    
-    
+ 
 }

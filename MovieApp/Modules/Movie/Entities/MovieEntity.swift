@@ -22,12 +22,12 @@ class MovieEntity:  NSObject, Mappable {
     var voteAverage : Double?
     var popularity : Double?
     var revenue: Double?
-    var releaseDate: String?
+    var releaseDate: Date?
     var posterPath: String?
     var backdropPathURL: String?
     var runtime : Int?
     var videos: [VideoEntity]?
-    
+    var genres: [String]?
     
     // MARK:  Métodos
     
@@ -40,7 +40,7 @@ class MovieEntity:  NSObject, Mappable {
     }
 
     
-    // Mapeo del objeto Movie
+    // MARK: Mapeo del entity Movie
     
     
     func mapping(map: Map) {
@@ -50,7 +50,6 @@ class MovieEntity:  NSObject, Mappable {
         self.overview <- map["overview"]
         self.budget <- map["budget"]
         self.revenue <- map["revenue"]
-        self.releaseDate <- map["release_date"]
         self.posterPath <- map["poster_path"]
         self.backdropPathURL <- map["backdrop_path"]
         self.videos <- map["videos.results"]
@@ -58,6 +57,16 @@ class MovieEntity:  NSObject, Mappable {
         self.popularity <- map["popularity"]
         self.runtime <- map["runtime"]
         
+        
+        if let genresJSON = map.JSON["genres"] as? [JSON] {
+            self.genres = genresJSON.compactMap({ $0["name"] as? String })
+        }
+        if let releaseDateString = map.JSON["release_date"] as? String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = .current
+            self.releaseDate = formatter.date(from: releaseDateString)
+        }
   
     }
     

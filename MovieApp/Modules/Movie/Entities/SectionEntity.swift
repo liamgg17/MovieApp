@@ -32,8 +32,7 @@ class SectionEntity: NSObject, Mappable {
     }
 
     
-    
-    // Mapeo del objeto Sección
+    // MARK:  Mapeo del entity Sección
     
     
     func mapping(map: Map) {

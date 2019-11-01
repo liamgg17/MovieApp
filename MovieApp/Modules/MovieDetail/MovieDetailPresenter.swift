@@ -10,13 +10,13 @@ import Foundation
 
 class MovieDetailPresenter  {
     
+    // MARK: Propiedades
     
-    
-    // MARK: Properties
     weak var view: MovieDetailViewProtocol?
     var interactor: MovieDetailInteractorInputProtocol?
     var wireFrame: MovieDetailWireFrameProtocol?
    
+    
     var movie: MovieEntity {
         return self.interactor!.movie
     }
@@ -26,26 +26,53 @@ class MovieDetailPresenter  {
 extension MovieDetailPresenter: MovieDetailPresenterProtocol {
    
     
-  
-    // TODO: implement presenter methods
+    // MARK:  Implementación de los métodos del Presenter
+    
+    /**
+     Función que se comunica con el MovieDetailInteractorInputProtocol mediante el método getMovieDetails() para obtener los detalles de una película en paticular
+     
+     
+     */
+    
+    
     func viewDidLoad() {
-        
+       
         self.interactor!.getMovieDetails()
     }
 }
 
 extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
+    
+    // MARK:  Implementación de los métodos del Interactor
+    
+    /**
+    
+     Función que se comunica con MovieDetailViewProtocol mediante el método updateMovieDetails() para actualizar la UI con los detalles de la película seleccionada
+     
+     
+     */
+    
+    
     func getMovieDetailsDidSucceed() {
         self.view!.updateMovieDetails()
         
         guard let videos = self.movie.videos,
+         
             let video = videos.first,
             let videoKey = video.key else { return }
             self.view!.playVideo(key: videoKey)
         
     }
     
-    func getMovieDetailsDidFailed(_ error: NetworkError) {
+    
+    /**
+     
+     Función que se comunica con MovieDetailViewProtocol mediante el método updateMovieDetails() para actualizar la UI con los detalles de la película seleccionada
+    
+     */
+    
+    func getMovieDetailsDidFailed(_ error: NetworkManager) {
+        
         self.view!.updateMovieDetails()
         
         guard let videos = self.movie.videos,
@@ -54,5 +81,5 @@ extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
             self.view!.playVideo(key: videoKey)
     }
     
-    // TODO: implement interactor output methods
+   
 }

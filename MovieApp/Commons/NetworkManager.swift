@@ -9,17 +9,20 @@
 import Foundation
 import Alamofire
 
-enum NetworkError {
+enum NetworkManager{
     
-    // MARK: - Definitions
+  
+    
     struct Error {
         static let networkError: String = "Problema en la conexión a Internet. Inténtalo de nuevo."
         static let internalError: String = "Ups, ha ocurrido un error. Inténtalo de nuevo"
     }
     
+    
     static var isConnectedToInternet: Bool {
         return NetworkReachabilityManager()?.isReachable ?? false
     }
+    
     
     enum LocalizedError: String {
         case networkError
@@ -35,7 +38,7 @@ enum NetworkError {
         }
     }
     
-    case error(NetworkError.LocalizedError)
+    case error(NetworkManager.LocalizedError)
     
     // MARK: - Propiedades
     
@@ -58,7 +61,7 @@ enum NetworkError {
     init(_ error: Error?) {
         
         guard let errorCode = error,
-            NetworkError.isConnectedToInternet else {
+            NetworkManager.isConnectedToInternet else {
                 self = .error(.networkError)
                 return
         }

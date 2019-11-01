@@ -11,8 +11,16 @@ import ObjectMapper
 
 class VideoEntity: NSObject, Mappable {
     
-  
-    // MARK:  Métodos
+
+    // MARK: - Propiedades
+    
+    var id: String?
+    var key: String?
+    var name: String?
+   
+    
+    // MARK: - Métodos
+    
     
     override init() {
         super.init()
@@ -22,15 +30,7 @@ class VideoEntity: NSObject, Mappable {
         self.init()
     }
     
-    
-    // MARK: - Propiedades
-    
-    var id: String?
-    var key: String?
-    var name: String?
-   
-    
-    // MARK: - Métodos
+    // MARK: - Mapeo del objeto Movie
     
      func mapping(map: Map) {
         self.id <- map["id"]

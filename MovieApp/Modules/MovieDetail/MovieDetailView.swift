@@ -12,6 +12,7 @@ import YoutubePlayer_in_WKWebView
 
 class MovieDetailView: UIViewControllerExtension {
     
+    
     // MARK: - Outlets
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,6 +23,7 @@ class MovieDetailView: UIViewControllerExtension {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
+    @IBOutlet weak var genresLabel: UILabel!
     @IBOutlet weak var popularity: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var budgetLabel: UILabel!
@@ -32,6 +34,7 @@ class MovieDetailView: UIViewControllerExtension {
     
     var presenter: MovieDetailPresenterProtocol?
 
+    
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -41,16 +44,11 @@ class MovieDetailView: UIViewControllerExtension {
         
     }
     
-    @objc func dismissAction() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
-  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-    self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.isTranslucent = true
     }
@@ -60,28 +58,34 @@ class MovieDetailView: UIViewControllerExtension {
         self.navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
     }
     
+    
+    // MARK:  Inicialización de UI y se establece la información básica de una película
+    
+   
     private func setData() {
         
-          // 
         
+        
+            self.statusBarStyle = .lightContent
         
             self.scrollView.delegate = self
             self.gradientView.fadeView(style: .top, percentage: 0.9)
         
             if let backdropImagePath = self.presenter!.movie.backdropPathURL {
-            let urlString = ApiSettings.getImage(fromPath: backdropImagePath)
-            self.blurImageView.downloadImage(fromURLString: urlString)
+                
+                let urlString = ApiSettings.getImage(fromPath: backdropImagePath)
+                self.blurImageView.downloadImage(fromURLString: urlString)
             
         
-            let backView = UIView(frame: self.blurImageView.bounds)
-            backView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-            self.blurImageView.addSubview(backView)
+                let backView = UIView(frame: self.blurImageView.bounds)
+                backView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+                self.blurImageView.addSubview(backView)
             
 
-            let blurEffect = UIBlurEffect(style: .light)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.frame = self.blurImageView.bounds
-            self.blurImageView.addSubview(blurEffectView)
+                let blurEffect = UIBlurEffect(style: .light)
+                let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                blurEffectView.frame = self.blurImageView.bounds
+                self.blurImageView.addSubview(blurEffectView)
             
            }
         
@@ -90,22 +94,21 @@ class MovieDetailView: UIViewControllerExtension {
             self.posterImageView.downloadImage(fromURLString: urlString)
               
             
-                self.posterImageView.clipsToBounds = false
-                self.posterImageView.layer.shadowColor = UIColor.black.cgColor
-                self.posterImageView.layer.shadowOpacity = 1
-                self.posterImageView.layer.shadowOffset = CGSize.zero
-                self.posterImageView.layer.shadowRadius = 10
-                self.posterImageView.layer.shadowPath = UIBezierPath(roundedRect:  self.posterImageView.bounds,  cornerRadius: 0).cgPath
+            self.posterImageView.clipsToBounds = false
+            self.posterImageView.layer.shadowColor = UIColor.black.cgColor
+            self.posterImageView.layer.shadowOpacity = 1
+            self.posterImageView.layer.shadowOffset = CGSize.zero
+            self.posterImageView.layer.shadowRadius = 10
+            self.posterImageView.layer.shadowPath = UIBezierPath(roundedRect:  self.posterImageView.bounds,  cornerRadius: 0).cgPath
            }
         
             self.titleLabel.text = self.presenter!.movie.title
-            self.subtitleLabel.text = self.presenter!.movie.releaseDate
+            self.subtitleLabel.text = self.presenter!.movie.releaseDate?.formattedString
         
             let overview = self.presenter!.movie.overview ?? ""
             self.overviewLabel.text = !overview.isEmpty ? overview : ""
   
             let average = self.presenter!.movie.voteAverage ?? 0
-        
         
             let averageRate = NSMutableAttributedString()
             averageRate
@@ -129,6 +132,11 @@ class MovieDetailView: UIViewControllerExtension {
 extension MovieDetailView: UIScrollViewDelegate {
     
     
+    /**
+     Función utilizada para mostrar u ocultar la NavigationBar al realizar el scroll
+     
+     */
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         
@@ -147,7 +155,14 @@ extension MovieDetailView: UIScrollViewDelegate {
 }
 
 extension MovieDetailView: MovieDetailViewProtocol {
-    // TODO: implement view output methods
+    
+    
+    /**
+     
+     Esta función actualiza la UI con la información adicional de una película
+     
+     
+     */
     
     func updateMovieDetails() {
         
@@ -164,9 +179,21 @@ extension MovieDetailView: MovieDetailViewProtocol {
         
         let revenue = self.presenter!.movie.revenue!.convertDoubleToCurrency  ?? " "
         self.revenueLabel.text = "Revenue: " + revenue
+        
+        let genres = self.presenter!.movie.genres?.joined(separator: ", ") ?? " "
+        self.genresLabel.text = "Genres: " + genres
+        
        
 
       }
+    
+
+    /**
+     Función que se encarga de reporudcir el video de una película
+     
+     :params: key String que contiene el código del video de Youtube
+     
+     */
     
     func  playVideo(key: String) {
         

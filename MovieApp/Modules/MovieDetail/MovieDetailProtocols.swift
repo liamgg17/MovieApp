@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 protocol MovieDetailViewProtocol: class {
+    
     // PRESENTER -> VIEW
+    
     var presenter: MovieDetailPresenterProtocol? { get set }
     
     func updateMovieDetails()
@@ -18,12 +20,16 @@ protocol MovieDetailViewProtocol: class {
 }
 
 protocol MovieDetailWireFrameProtocol: class {
+   
     // PRESENTER -> WIREFRAME
+    
     static func createMovieDetailModule(movie: MovieEntity) -> UIViewController
 }
 
 protocol MovieDetailPresenterProtocol: class {
+    
     // VIEW -> PRESENTER
+   
     var view: MovieDetailViewProtocol? { get set }
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
@@ -35,42 +41,43 @@ protocol MovieDetailPresenterProtocol: class {
 }
 
 protocol MovieDetailInteractorOutputProtocol: class {
-// INTERACTOR -> PRESENTER
+
+    // INTERACTOR -> PRESENTER
     
     func getMovieDetailsDidSucceed()
-    func getMovieDetailsDidFailed(_ error: NetworkError)
+    func getMovieDetailsDidFailed(_ error: NetworkManager)
 }
 
 protocol MovieDetailInteractorInputProtocol: class {
+    
     // PRESENTER -> INTERACTOR
     
     var presenter: MovieDetailInteractorOutputProtocol? { get set }
-    var localDatamanager: MovieDetailLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol? { get set }
-
-   var movie: MovieEntity { get }
+    var movie: MovieEntity { get }
     
-  func getMovieDetails()
+    func getMovieDetails()
 
 }
 
 protocol MovieDetailDataManagerInputProtocol: class {
+    
     // INTERACTOR -> DATAMANAGER
     
     
 }
 
 protocol MovieDetailRemoteDataManagerInputProtocol: class {
+   
     // INTERACTOR -> REMOTEDATAMANAGER
-    var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
     
+    var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
     func getMovieDetail(urlString:String, success: @escaping (JSON) -> Void)
 }
 
 protocol MovieDetailRemoteDataManagerOutputProtocol: class {
+   
     // REMOTEDATAMANAGER -> INTERACTOR
 }
 
-protocol MovieDetailLocalDataManagerInputProtocol: class {
-    // INTERACTOR -> LOCALDATAMANAGER
-}
+

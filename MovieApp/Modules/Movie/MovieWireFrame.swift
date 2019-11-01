@@ -14,13 +14,21 @@ class MovieWireFrame: MovieWireFrameProtocol {
    
     
     private(set) weak var view: MovieView!
+    
+    
+    /**
+     
+     Función que crea la instancia del modulo de VIPER
+     
+     :returns: VieController instanciado
+     
+     */
 
     class func createMovieModule() -> UIViewController {
         let navController = mainStoryboard.instantiateViewController(withIdentifier: "MovieView")
         if let view = navController.children.first as? MovieView {
             let presenter: MoviePresenterProtocol & MovieInteractorOutputProtocol = MoviePresenter()
             let interactor: MovieInteractorInputProtocol & MovieRemoteDataManagerOutputProtocol = MovieInteractor()
-            let localDataManager: MovieLocalDataManagerInputProtocol = MovieLocalDataManager()
             let remoteDataManager: MovieRemoteDataManagerInputProtocol = MovieRemoteDataManager()
             let wireFrame: MovieWireFrameProtocol = MovieWireFrame()
             
@@ -29,7 +37,6 @@ class MovieWireFrame: MovieWireFrameProtocol {
             presenter.wireFrame = wireFrame
             presenter.interactor = interactor
             interactor.presenter = presenter
-            interactor.localDatamanager = localDataManager
             interactor.remoteDatamanager = remoteDataManager
             remoteDataManager.remoteRequestHandler = interactor
             
@@ -42,16 +49,18 @@ class MovieWireFrame: MovieWireFrameProtocol {
         return UIStoryboard(name: "Movie", bundle: Bundle.main)
     }
     
+    /**
+     
+     Función para mostrar la vista detalle de una película llamando al método createMovieDetailModule del protocolo MovieDetailWireFrameProtocol
+     
+     :params: from  MovieViewProtocol Módulo de VIPER origen
+     :params: movie Objeto de tipo MovieEntity
+     */
+    
     func presentMovieDetail(from: MovieViewProtocol, movie: MovieEntity) {
         
-        // Se crea e instancia el módulo de detalle
-        
-        let movieDetail = MovieDetailWireFrame.createMovieDetailModule(movie: movie)
-        
-        
-        if let view = from as? UIViewController {
-            
-  
+       let movieDetail = MovieDetailWireFrame.createMovieDetailModule(movie: movie)
+       if let view = from as? UIViewController {
             view.navigationController?.pushViewController(movieDetail, animated: true)
         }
     }

@@ -12,13 +12,15 @@ import UIKit
 
 class MovieView: UIViewController {
 
-    // MARK: Properties
+    // MARK: Propiedades
     var presenter: MoviePresenterProtocol?
     
+   
     // MARK: Outlets
     
     @IBOutlet weak var moviesCollectionView: UICollectionView!
 
+    
     // MARK: Lifecyle
 
     override func viewDidLoad() {
@@ -29,10 +31,11 @@ class MovieView: UIViewController {
         self.initSegmentedControl()
         self.initSearchControl()
         self.presenter!.getMovies(from: .popular)
-        
         self.showLoader()
         
     }
+    
+    // MARK:  Inicialización de SegmentedControl
     
     private func initSegmentedControl() {
         
@@ -47,12 +50,12 @@ class MovieView: UIViewController {
         segmentedControl.tintColor = .clear
         
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
+            NSAttributedString.Key.font : UIFont(name: "AvenirNext-Medium", size: 14)!,
             NSAttributedString.Key.foregroundColor: UIColor.lightGray
             ], for: .normal)
         
         segmentedControl.setTitleTextAttributes([
-            NSAttributedString.Key.font : UIFont(name: "Helvetica", size: 14)!,
+            NSAttributedString.Key.font : UIFont(name: "AvenirNext-Medium", size: 14)!,
             NSAttributedString.Key.foregroundColor: UIColor.primaryColor
             ], for: .selected)
         
@@ -60,23 +63,38 @@ class MovieView: UIViewController {
         
     }
     
+    // MARK:  Inicialización de SearchControl
+    
     func initSearchControl() {
         
         let search = UISearchController(searchResultsController: nil)
         search.searchBar.delegate = self
-        search.searchBar.tintColor = .red
+        search.searchBar.tintColor = UIColor.primaryColor
         search.obscuresBackgroundDuringPresentation = false
         search.definesPresentationContext = true
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = search
-            
             self.navigationItem.hidesSearchBarWhenScrolling = true
         }
         
     }
     
+    // MARK:  Inicialización de CollectionView
+    
+    
+    private func initMoviesCollectionView() {
+        
+        // Configuración de la celda customizada
+        
+        self.moviesCollectionView.dataSource = self
+        self.moviesCollectionView.delegate = self
+        CollectionMovieCell.register(self.moviesCollectionView)
+        
+    }
+    
     
     @objc func sectionChanged(_ control: UISegmentedControl) {
+       
         guard let section = Section(rawValue: control.selectedSegmentIndex) else { return }
     
             self.moviesCollectionView.setContentOffset(.zero, animated: true)
@@ -86,24 +104,15 @@ class MovieView: UIViewController {
     }
     
  
-    private func initMoviesCollectionView() {
-        
-        // Configuración de la celda customizada
-        
-        self.moviesCollectionView.dataSource = self
-        self.moviesCollectionView.delegate = self
-        
-        CollectionMovieCell.register(self.moviesCollectionView)
-    
-    }
-    
-  
+   
 }
 
 
 // MARK: - UISearchBarDelegate
 
+
 extension MovieView: UISearchBarDelegate {
+    
     
     // MARK: - Métodos
     
@@ -115,15 +124,13 @@ extension MovieView: UISearchBarDelegate {
         self.presenter!.shouldSearchMovie = false
     }
     
-  
-    
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
      
         searchBar.resignFirstResponder()
         self.presenter!.searchMovie(title: searchBar.text!)
     }
 }
+
 
 
 // MARK: - UICollectionViewDataSource
@@ -142,15 +149,14 @@ extension MovieView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionMovieCell", for: indexPath) as? CollectionMovieCell else { return UICollectionViewCell() }
-      
+     
         cell.setValuesForFields(with: self.presenter!.movie[indexPath.item])
-        
+      
         return cell
     }
     
 
 }
-
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
@@ -162,11 +168,11 @@ extension MovieView: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 2.0, left: 0.0, bottom: 2.0, right: 0.0)
     }
     
-    private var margins: CGFloat {
+    private var margin: CGFloat {
         return 0.0
     }
     
-    // MARK: - Internal Methods
+    // MARK: - Métodos
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -177,19 +183,19 @@ extension MovieView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return self.margins
+        return self.margin
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return self.margins
+        return self.margin
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding = self.insetForSections.left + self.insetForSections.right + self.margins
+        let padding = self.insetForSections.left + self.insetForSections.right + self.margin
         let width = (self.view.bounds.size.width - padding) / 3
         let ratio: CGFloat = 1.9
         let height = width * ratio
@@ -208,7 +214,7 @@ extension MovieView: UICollectionViewDelegateFlowLayout {
 
 extension MovieView: UICollectionViewDelegate {
     
-    // MARK: - Internal Methods
+    // MARK: - Métodos
     
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
@@ -223,19 +229,24 @@ extension MovieView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard self.presenter!.movie.indices.contains(indexPath.item) else { return }
-        
+       
         self.presenter!.selectMovie(self.presenter!.movie[indexPath.item])
         
     }
     
-  
-
+ 
 }
 
+// MARK: - MovieViewProtocol
 
 extension MovieView: MovieViewProtocol {
  
    
+    /**
+     Función para recargar el CollectionView y ocular el loader
+     
+
+     */
     
     func reloadMovies() {
        
@@ -244,14 +255,19 @@ extension MovieView: MovieViewProtocol {
     
     }
     
-    func addNewMovies() {
+    /**
+     Función para insertar los nuevos items de películas en el CollectionView
+     
+     */
+    
+    func addMovies() {
         
         var indexPaths: [IndexPath] = []
-      
-        print(self.presenter!.movie.count)
+     
+ 
         if self.presenter!.movie.count > 20 {
             for _ in 0..<20{
-               indexPaths.append(IndexPath(item: self.presenter!.movie.count - 20 + 1, section: 0))
+                indexPaths.append(IndexPath(item: self.presenter!.movie.count - 20 + 1, section: 0))
                 
                 // MEJORAR
             }
@@ -259,19 +275,17 @@ extension MovieView: MovieViewProtocol {
         
         
         self.moviesCollectionView.performBatchUpdates({
-            self.moviesCollectionView.insertItems(at: indexPaths)
-        })
+                        self.moviesCollectionView.insertItems(at: indexPaths)
+                   })
     }
+    
+   
     
     func didFailedMovies(localizedError: String) {
         
-     //   let okAction = UIAlertAction(title: MessagesUtil.General.ok, style: .default)
-//        self.showAlert(withTitle: MessagesUtil.General.oops,
-//                       message: localizedError,
-//                       actions: [okAction]) {
-//                        self.reloadMovies()
-//        }
+        self.reloadMovies()
+
     }
     
-    // TODO: implement view output methods
+    
 }

@@ -11,15 +11,24 @@ import Foundation
 class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
  
     
-    // MARK: Properties
+    // MARK: Propiedades
+    
     weak var presenter: MovieDetailInteractorOutputProtocol?
-    var localDatamanager: MovieDetailLocalDataManagerInputProtocol?
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol?
     var movie: MovieEntity
+    
+    
     
     init(movie: MovieEntity) {
         self.movie = movie
     }
+    
+    /**
+     Esta función se comunica con el Protocolo MovieDetailRemoteDataManagerInputProtocol  para solitar los detalles de una película en particular. En caso de obtener respuesta satisfactoria se comunica con el Presenter medainte el método getMovieDetailsDidSucceed() 
+     
+     
+     */
+    
     
     func getMovieDetails() {
         
@@ -28,21 +37,20 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
             return
         }
         
-        let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(movieId)?api_key=\(ApiSettings.apiKey)&append_to_response=videos,credits"
+        let urlStr = "\(ApiSettings.ApiBaseUrl)/movie/\(movieId)?api_key=\(ApiSettings.apiKey)&append_to_response=videos"
         
     
         remoteDatamanager?.getMovieDetail(urlString: urlStr, success: { json in
             
             
             guard let movie = MovieEntity(JSON: json) else {
-                 NetworkError.error(.internalError)
+                 NetworkManager.error(.internalError)
                 return
             }
             
             self.movie = movie
             self.presenter!.getMovieDetailsDidSucceed()
             
-             
         })
         
         
@@ -52,5 +60,5 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
 }
 
 extension MovieDetailInteractor: MovieDetailRemoteDataManagerOutputProtocol {
-    // TODO: Implement use case methods
+    
 }

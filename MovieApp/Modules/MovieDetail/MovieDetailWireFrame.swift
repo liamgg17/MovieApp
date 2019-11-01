@@ -10,13 +10,20 @@ import Foundation
 import UIKit
 
 class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
+    
+    /**
+     
+     Función que crea la instancia del modulo de VIPER
+     
+     :returns: VieController instanciado
+     
+     */
 
     class func createMovieDetailModule(movie: MovieEntity) -> UIViewController {
         let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailView")
         if let view = viewController as? MovieDetailView {
             let presenter: MovieDetailPresenterProtocol & MovieDetailInteractorOutputProtocol = MovieDetailPresenter()
             let interactor: MovieDetailInteractorInputProtocol & MovieDetailRemoteDataManagerOutputProtocol = MovieDetailInteractor(movie: movie)
-            let localDataManager: MovieDetailLocalDataManagerInputProtocol = MovieDetailLocalDataManager()
             let remoteDataManager: MovieDetailRemoteDataManagerInputProtocol = MovieDetailRemoteDataManager()
             let wireFrame: MovieDetailWireFrameProtocol = MovieDetailWireFrame()
             
@@ -25,7 +32,6 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
             presenter.wireFrame = wireFrame
             presenter.interactor = interactor
             interactor.presenter = presenter
-            interactor.localDatamanager = localDataManager
             interactor.remoteDatamanager = remoteDataManager
             remoteDataManager.remoteRequestHandler = interactor
             

@@ -30,9 +30,6 @@ class UIViewControllerExtension: UIViewController {
 extension UIViewController {
     
     
-    
-    
-    
     func showLoader(optSize: CGSize? = nil, optType: NVActivityIndicatorType? = nil, optColor: UIColor? = nil){
         let actData = ActivityData(
             size: (optSize ?? CGSize(width: 80, height: 80)),
@@ -58,7 +55,7 @@ extension UIViewController {
 
 extension UIViewControllerExtension: UINavigationBarDelegate {
     
-    // MARK: - Internal Methods
+    // MARK: - Métodos
     
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
